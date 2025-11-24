@@ -48,6 +48,7 @@ export const Notes = () => {
         <hr />
         <h1 className="mt-5">Your Notes</h1>
         <div className="row d-flex">
+          {notes.length === 0 && "No Notes to display"}
           {notes.map((note) => {
             return (
               <Noteitem key={note._id} updateNote={updateNote} note={note} />
@@ -99,6 +100,8 @@ export const Notes = () => {
                     value={note.etitle}
                     onChange={onChange}
                     aria-describedby="emailHelp"
+                    minLength={5}
+                    required
                   />
                 </div>
                 <div className="mb-3">
@@ -112,6 +115,8 @@ export const Notes = () => {
                     name="edescription"
                     value={note.edescription}
                     onChange={onChange}
+                    minLength={5}
+                    required
                   />
                 </div>
                 <div className="mb-3">
@@ -125,6 +130,8 @@ export const Notes = () => {
                     name="etag"
                     value={note.etag}
                     onChange={onChange}
+                    minLength={5}
+                    required
                   />
                 </div>
               </form>
@@ -134,6 +141,9 @@ export const Notes = () => {
                 type="button"
                 onClick={handleClick}
                 className="btn btn-primary"
+                disabled={
+                  note.etitle.length < 5 || note.edescription.length < 5
+                }
               >
                 Update Note
               </button>
