@@ -1,9 +1,9 @@
-import React from "react";
+import Notes from "./Notes";
+
 const Home = () => {
   return (
     <div>
-      <h1>This is mern App</h1>
-      <i class="fa fa-xing" aria-hidden="true"></i>
+      <Notes />
     </div>
   );
 };
