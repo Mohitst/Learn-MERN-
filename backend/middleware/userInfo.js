@@ -1,0 +1,20 @@
+const jwt = require("jsonwebtoken");
+const JWT_secret = "mohitstealthtechnocrats@1313";
+
+const userInfo = (req, res, next) => {
+  // get the user id from auth token and add it in response
+  const token = req.header("auth-token");
+  if (!token) {
+    res.status(401).send({ error: "Please Login First." });
+  }
+
+  try {
+    const data = jwt.verify(token, JWT_secret);
+    req.user = data.user;
+    next();
+  } catch (error) {
+    res.status(401).send({ error: "Please Login First." });
+  }
+};
+
+module.exports = userInfo;
