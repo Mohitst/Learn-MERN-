@@ -2,10 +2,12 @@ import React, { useContext, useEffect, useRef, useState } from "react";
 import NoteContext from "../context/notes/noteContext";
 import Noteitem from "./Noteitem";
 import AddNote from "./AddNote";
+import { useNavigate } from "react-router-dom";
 
-export const Notes = () => {
+export const Notes = (props) => {
   const context = useContext(NoteContext);
   const { notes, getNote, editNote } = context;
+  const navigate = useNavigate();
 
   const [note, setnote] = useState({
     id: "",
@@ -15,7 +17,12 @@ export const Notes = () => {
   });
 
   useEffect(() => {
-    getNote();
+    const token = localStorage.getItem("auth_token");
+    if (token) {
+      getNote();
+    } else {
+      navigate("/login");
+    }
     // eslint-disable-next-line
   }, []);
 
@@ -30,6 +37,7 @@ export const Notes = () => {
       edescription: currentNote.description,
       etag: currentNote.tag,
     });
+    props.showAlert("Note updated successfully", "success");
   };
 
   const handleClick = (e) => {
@@ -43,17 +51,25 @@ export const Notes = () => {
 
   return (
     <div>
-      <AddNote />
+      <AddNote showAlert={props.showAlert} />
       <div className="container my-5">
         <hr />
         <h1 className="mt-5">Your Notes</h1>
         <div className="row d-flex">
-          {notes.length === 0 && "No Notes to display"}
-          {notes.map((note) => {
-            return (
-              <Noteitem key={note._id} updateNote={updateNote} note={note} />
-            );
-          })}
+          {Array.isArray(notes) && notes.length === 0 && (
+            <div className="text-muted">No Notes to display</div>
+          )}
+          {Array.isArray(notes) &&
+            notes.map((note) => {
+              return (
+                <Noteitem
+                  key={note._id}
+                  updateNote={updateNote}
+                  note={note}
+                  showAlert={props.showAlert}
+                />
+              );
+            })}
         </div>
       </div>
       <button

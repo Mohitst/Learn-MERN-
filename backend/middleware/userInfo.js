@@ -5,7 +5,7 @@ const userInfo = (req, res, next) => {
   // get the user id from auth token and add it in response
   const token = req.header("auth-token");
   if (!token) {
-    res.status(401).send({ error: "Please Login First." });
+    return res.status(401).send({ error: "Please Login First." });
   }
 
   try {

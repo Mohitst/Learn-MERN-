@@ -59,7 +59,7 @@ router.post(
       res.status(201).json({
         success: true,
         message: "User created successfully",
-        //   auth_token,
+        // auth_token,
       });
     } catch (error) {
       console.error("Error creating user:", error.message);

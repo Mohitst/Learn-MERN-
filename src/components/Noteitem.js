@@ -7,7 +7,7 @@ const Noteitem = (props) => {
   const { deleteNote } = context;
   const onDelete = () => {
     deleteNote(note._id);
-    // props.showAlert("Note Deleted Successfully", "success");
+    props.showAlert("Note Deleted Successfully", "warning");
   };
   return (
     <div className="col-md-3 my-3">
