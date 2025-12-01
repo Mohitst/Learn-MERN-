@@ -12,6 +12,7 @@ app.use(express.json()); // middle are to use json in apis
 //Available Routes
 app.use("/api/auth", require("./routes/auth"));
 app.use("/api/notes", require("./routes/notes"));
+app.use("/api/page", require("./routes/about"));
 
 app.listen(port, () => {
   console.log(`Mern App Backend listening on port ${port}`);
